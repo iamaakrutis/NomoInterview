@@ -6,6 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.remote.AutomationName;
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pages.LoginPage;
 import java.net.MalformedURLException;
@@ -37,6 +38,7 @@ public class LoginTests {
         String appiumUrl = ConfigReader.getAppiumServerUrl();
         driver = new AndroidDriver(new URL(appiumUrl), options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L));
+        WebElement wb;
     }
     public static void validLogin() {
         LoginPage loginPage = new LoginPage(driver);
