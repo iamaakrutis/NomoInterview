@@ -1,5 +1,6 @@
 package tests;
 
+import config.ConfigReader;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
@@ -17,7 +18,8 @@ public class LoginTests {
     public static UiAutomator2Options options;
     public static AndroidDriver driver;
     public static void basicSetup() {
-        Path path = Paths.get("D:\\Workspace01\\src\\test\\resources\\App\\demo.apk");
+        String appPath = ConfigReader.getAppPath();
+        Path path = Paths.get(appPath);
 //		DesiredCapabilities capabilities = new DesiredCapabilities();
         options = new UiAutomator2Options();
         options.autoGrantPermissions();
@@ -32,7 +34,8 @@ public class LoginTests {
         options.setAppWaitForLaunch(true);
     }
     public static void openApp() throws MalformedURLException{
-        driver = new AndroidDriver(new URL("http://localhost:4723/wd/hub"), options);
+        String appiumUrl = ConfigReader.getAppiumServerUrl();
+        driver = new AndroidDriver(new URL(appiumUrl), options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10L));
     }
     public static void validLogin() {

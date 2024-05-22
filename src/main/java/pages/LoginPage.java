@@ -1,21 +1,42 @@
 package pages;
-import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class LoginPage {
-    private final AndroidDriver driver;
-    //initializing the driver
-    public LoginPage(AndroidDriver driver) {
+    private WebDriver driver;
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+    @AndroidFindBy(xpath = "//android.widget.EditText[@content-desc=\"test-Username\"]")
+    private WebElement usernameField;
+
+    @AndroidFindBy(xpath = "//android.widget.EditText[@content-desc=\"test-Password\"]")
+    private WebElement passwordField;
+
+    @AndroidFindBy(xpath = "//android.view.ViewGroup[@content-desc=\"test-LOGIN\"]")
+    private WebElement loginButton;
+
+    public LoginPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
-    // Methods to interact with elements on the login page
+
     public void enterUsername(String username) {
-        driver.findElement(AppiumBy.accessibilityId("test-Username")).sendKeys(username);
+       usernameField.sendKeys(username);
     }
+
     public void enterPassword(String password) {
-        driver.findElement(AppiumBy.accessibilityId("test-Password")).sendKeys(password);
+        passwordField.sendKeys(password);
     }
+
     public void clickLoginButton() {
-        driver.findElement(AppiumBy.accessibilityId("test-LOGIN")).click();
+        loginButton.click();
     }
 }
